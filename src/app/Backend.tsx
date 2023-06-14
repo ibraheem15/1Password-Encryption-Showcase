@@ -1,4 +1,28 @@
 import crypto from "crypto";
+import express, { Request, Response } from "express";
+
+const app = express();
+const port = 3000;
+
+app.use(express.json());
+
+interface FormData {
+  message: string;
+}
+
+app.post("/api-encrypt", (req: Request, res: Response) => {
+    const { message } = req.body as FormData;
+
+    console.log('Received message:', message);
+
+  // Send a response back to the client
+  res.status(200).json({ success: true });
+});
+
+app.listen(port, () => {
+    console.log(`Server is listening at http://localhost:${port}`);
+    }
+);
 
 const client1 = crypto.createECDH("secp256k1");
 client1.generateKeys();
